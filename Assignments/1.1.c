@@ -1,28 +1,36 @@
-#include<stdio.h>
+
+#include <stdio.h>
 int main()
 {
- int arr[20];
- int i,j;
- printf("enter array numbers: ");
- for(i=0;i<20;i++)
- scanf("%d",&arr[i]);
- for(i=0;i<20;i++)
- printf("array numbers: %d \n", arr[i]);
- int n;
- printf("number to be deleted:  ");
- scanf("%d",&n);
- for(i=0;i<20;i++)
- {
-   if (n==arr[i])
-   {
-    j=i;
-    while (j<20)
+    int a[100], n, key;
+    int low, high, mid, comparisons = 0;
+    int found = 0;
+    printf("Enter number of employees: ");
+    scanf("%d", &n);
+    printf("Enter employee IDs in ascending order:\n");
+    for (int i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+    printf("Enter ID to search: ");
+    scanf("%d", &key);
+    low = 0;
+    high = n - 1;
+    while (low <= high)
     {
-    arr[j]=arr[j+1];
-    j++;
+        mid = (low + high) / 2;
+        comparisons++;
+        if (a[mid] == key)
+        {
+            printf("Employee ID found at position %d\n", mid + 1);
+            found = 1;
+            break;
+        }
+        else if (key < a[mid])
+            high = mid - 1;
+        else
+            low = mid + 1;
     }
- for(i=0;i<19;i++)
- printf("%d", arr[i]);
- }
- }
- }
+    if (found == 0)
+        printf("Employee ID not found\n");
+    printf("Number of comparisons = %d\n", comparisons);
+    return 0;
+}
